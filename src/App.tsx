@@ -4,7 +4,8 @@ import React, { useState, useEffect, useRef } from 'react';
 // PREMIUM GLASSMORPHISM THEME & STYLES
 // ============================================================================
 const glassPanel =
-  "bg-white/40 backdrop-blur-3xl border border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.08)]";
+  "bg-white/20 backdrop-blur-[40px] border border-white/50 " +
+  "shadow-[0_8px_32px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,0.6)]";
 
 // ============================================================================
 // MAIN APPLICATION — 8 FULL-SCREEN SECTIONS
@@ -92,9 +93,11 @@ export default function App() {
   // ── Render ───────────────────────────────────────────────────────
   return (
     <div className="relative h-screen w-screen text-slate-900 font-sans overflow-hidden bg-transparent selection:bg-indigo-500/30 selection:text-indigo-900">
+      {/* ── DECORATIVE GRADIENT ORBS ─────────────────────────── */}
+      <div className="glass-orbs" />
 
       {/* ── HEADER ──────────────────────────────────────────────── */}
-      <header className="fixed top-0 left-0 right-0 z-50 px-8 py-5 flex items-center justify-between border-b border-white/20 bg-white/30 backdrop-blur-2xl">
+      <header className="fixed top-0 left-0 right-0 z-50 px-8 py-5 flex items-center justify-between border-b border-white/40 bg-white/20 backdrop-blur-[40px] shadow-[0_4px_30px_rgba(0,0,0,0.04),inset_0_1px_0_rgba(255,255,255,0.5)]">
         <div className="flex items-center space-x-12">
           <div className="text-xl font-extrabold tracking-tighter cursor-pointer" onClick={() => goTo(0)}>
             ATOMITY
@@ -153,7 +156,7 @@ export default function App() {
         {/* ── 3 · CONTROL PLANE ──────────────────────────────── */}
         <section className="w-full h-screen flex flex-col justify-center items-end px-8 sm:px-16 lg:px-24">
           <div className={`${glassPanel} p-10 sm:p-12 rounded-[2.5rem] max-w-lg space-y-4`}>
-            <span className={`${anim(2)} inline-flex px-3 py-1 rounded-full bg-white/60 border border-white text-[10px] font-bold tracking-widest uppercase text-slate-500`}>
+            <span className={`${anim(2)} inline-flex px-3 py-1 rounded-full bg-white/15 backdrop-blur-[20px] border border-white/40 text-[10px] font-bold tracking-widest uppercase text-slate-500 shadow-[inset_0_1px_0_rgba(255,255,255,0.3)]`}>
               Control Plane
             </span>
             <h2 className={`${anim(2, "delay-100")} text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight`}>
@@ -168,7 +171,7 @@ export default function App() {
         {/* ── 4 · TOPOLOGY ───────────────────────────────────── */}
         <section className="w-full h-screen flex flex-col justify-center items-start px-8 sm:px-16 lg:px-24">
           <div className={`${glassPanel} p-10 sm:p-12 rounded-[2.5rem] max-w-lg space-y-4`}>
-            <span className={`${anim(3)} inline-flex px-3 py-1 rounded-full bg-white/60 border border-white text-[10px] font-bold tracking-widest uppercase text-slate-500`}>
+            <span className={`${anim(3)} inline-flex px-3 py-1 rounded-full bg-white/15 backdrop-blur-[20px] border border-white/40 text-[10px] font-bold tracking-widest uppercase text-slate-500 shadow-[inset_0_1px_0_rgba(255,255,255,0.3)]`}>
               Topology
             </span>
             <h2 className={`${anim(3, "delay-100")} text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight`}>
@@ -188,7 +191,7 @@ export default function App() {
             </h2>
 
             <div className="space-y-4">
-              <div className="bg-white/40 backdrop-blur-md border border-white/60 p-4 rounded-2xl">
+              <div className="bg-white/15 backdrop-blur-[30px] border border-white/40 p-4 rounded-2xl shadow-[inset_0_1px_0_rgba(255,255,255,0.4)]">
                 <div className="flex justify-between mb-2 text-sm font-bold">
                   <span>CPU Request</span>
                   <span className="font-mono text-slate-500">{cpuReq}m</span>
@@ -200,7 +203,7 @@ export default function App() {
                 />
               </div>
 
-              <div className="bg-white/40 backdrop-blur-md border border-white/60 p-4 rounded-2xl">
+              <div className="bg-white/15 backdrop-blur-[30px] border border-white/40 p-4 rounded-2xl shadow-[inset_0_1px_0_rgba(255,255,255,0.4)]">
                 <div className="flex justify-between mb-2 text-sm font-bold">
                   <span>Memory</span>
                   <span className="font-mono text-slate-500">{ramReq} GiB</span>

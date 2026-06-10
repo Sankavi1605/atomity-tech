@@ -4,6 +4,37 @@
 
 body {
   margin: 0;
-  background: linear-gradient(135deg, #f0f4ff 0%, #e8e0f0 50%, #fdf0e8 100%);
+  background: linear-gradient(135deg, #e8edf8 0%, #dcd4e8 50%, #f5ead8 100%);
   min-height: 100vh;
+  overflow: hidden;
+}
+
+.glass-orbs {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.glass-orbs::before,
+.glass-orbs::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.6;
+}
+.glass-orbs::before {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, #a78bfa 0%, transparent 70%);
+  top: -120px;
+  left: -80px;
+}
+.glass-orbs::after {
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, #60a5fa 0%, transparent 70%);
+  bottom: -150px;
+  right: -100px;
 }
