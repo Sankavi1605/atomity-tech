@@ -15,7 +15,11 @@ export default function App() {
   const totalSections = 8;
   const isTransitioning = useRef(false);
   const touchStartY = useRef(0);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
+  const framesCache = useRef<Map<number, HTMLImageElement>>(new Map());
+  const animFrameRef = useRef<number>(0);
+  const currentFrameRef = useRef(1);
+  const [currentFrame, setCurrentFrame] = useState(1);
 
   // Section 5 — Savings sliders
   const [cpuReq, setCpuReq] = useState(700);
@@ -78,12 +82,46 @@ export default function App() {
     };
   }, [activeSection]);
 
-  // Sync video playback to active section
+  const TOTAL_FRAMES = 110;
+  const BASE_URL =
+    "https://pub-2c3b960ecc384ec79f19a7516c538574.r2.dev";
+  const frameUrl = (n: number) =>
+    `${BASE_URL}/ezgif-frame-${String(n).padStart(3, "0")}.png`;
+
+  // Preload all 110 frames on mount
   useEffect(() => {
-    const v = videoRef.current;
-    if (!v || !v.duration) return;
-    const target = (activeSection / (totalSections - 1)) * v.duration;
-    v.currentTime = Math.min(target, v.duration);
+    for (let i = 1; i <= TOTAL_FRAMES; i++) {
+      const img = new Image();
+      img.src = frameUrl(i);
+      framesCache.current.set(i, img);
+    }
+  }, []);
+
+  // Animate frames when section changes
+  useEffect(() => {
+    const target = Math.round(
+      (activeSection / (totalSections - 1)) * (TOTAL_FRAMES - 1)
+    ) + 1;
+    const start = currentFrameRef.current;
+    const diff = target - start;
+    if (diff === 0) return;
+    const duration = 1000;
+    let startTime: number | null = null;
+    const tick = (now: number) => {
+      if (!startTime) startTime = now;
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // ease-out cubic
+      const ease = 1 - Math.pow(1 - progress, 3);
+      const frame = Math.round(start + diff * ease);
+      currentFrameRef.current = frame;
+      setCurrentFrame(frame);
+      if (progress < 1) {
+        animFrameRef.current = requestAnimationFrame(tick);
+      }
+    };
+    animFrameRef.current = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(animFrameRef.current);
   }, [activeSection]);
 
   // ── Helpers ──────────────────────────────────────────────────────
@@ -103,13 +141,13 @@ export default function App() {
   return (
     <div className="relative h-screen w-screen text-slate-900 font-sans overflow-hidden bg-transparent selection:bg-indigo-500/30 selection:text-indigo-900">
       {/* ── VIDEO BACKGROUND ─────────────────────────────────── */}
-      <video
-        ref={videoRef}
+      {/* ── IMAGE SEQUENCE BACKGROUND ────────────────────────── */}
+      <img
+        ref={imgRef}
+        src={frameUrl(currentFrame)}
+        alt=""
         className="fixed inset-0 w-full h-full object-cover z-0"
-        muted
-        playsInline
-        preload="auto"
-        src="https://pub-2c3b960ecc384ec79f19a7516c538574.r2.dev/atomitytech"
+        draggable={false}
       />
       {/* ── DARK OVERLAY FOR GLASS CONTRAST ──────────────────── */}
       <div className="fixed inset-0 z-[1] bg-gradient-to-b from-black/20 via-black/10 to-black/30 pointer-events-none" />
