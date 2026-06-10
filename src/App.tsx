@@ -139,14 +139,13 @@ export default function App() {
 
   // ── Render ───────────────────────────────────────────────────────
   return (
-    <div className="relative h-screen w-screen text-slate-900 font-sans overflow-hidden bg-transparent selection:bg-indigo-500/30 selection:text-indigo-900">
-      {/* ── VIDEO BACKGROUND ─────────────────────────────────── */}
+    <div className="relative w-screen h-screen text-slate-900 font-sans overflow-hidden bg-black selection:bg-indigo-500/30 selection:text-indigo-900">
       {/* ── IMAGE SEQUENCE BACKGROUND ────────────────────────── */}
       <img
         ref={imgRef}
         src={frameUrl(currentFrame)}
         alt=""
-        className="fixed inset-0 w-full h-full object-cover z-0"
+        className="fixed inset-0 w-[100vw] h-[100vh] object-cover object-center z-0 scale-105"
         draggable={false}
       />
       {/* ── DARK OVERLAY FOR GLASS CONTRAST ──────────────────── */}
@@ -363,6 +362,13 @@ export default function App() {
           </div>
         </section>
 
+      </div>
+
+      {/* ── FOOTER BAR ─────────────────────────────────────────── */}
+      <div className="fixed bottom-0 left-0 right-0 z-50 h-8 bg-black/60 backdrop-blur-xl border-t border-white/10 flex items-center justify-center">
+        <span className="text-[9px] font-mono font-semibold uppercase tracking-[0.25em] text-white/40">
+          Atomity · Cloud Infrastructure Intelligence
+        </span>
       </div>
     </div>
   );

@@ -2,11 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
+html, body {
   margin: 0;
-  background: linear-gradient(135deg, #e8edf8 0%, #dcd4e8 50%, #f5ead8 100%);
-  min-height: 100vh;
+  padding: 0;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
+}
+body {
+  background: #111;
 }
 
 .glass-orbs {
