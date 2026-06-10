@@ -15,6 +15,7 @@ export default function App() {
   const totalSections = 8;
   const isTransitioning = useRef(false);
   const touchStartY = useRef(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   // Section 5 — Savings sliders
   const [cpuReq, setCpuReq] = useState(700);
@@ -77,6 +78,14 @@ export default function App() {
     };
   }, [activeSection]);
 
+  // Sync video playback to active section
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v || !v.duration) return;
+    const target = (activeSection / (totalSections - 1)) * v.duration;
+    v.currentTime = Math.min(target, v.duration);
+  }, [activeSection]);
+
   // ── Helpers ──────────────────────────────────────────────────────
   const savings = () => {
     const diff = (700 * 0.12 + 5.0 * 24.5) - (cpuReq * 0.12 + ramReq * 24.5);
@@ -93,6 +102,17 @@ export default function App() {
   // ── Render ───────────────────────────────────────────────────────
   return (
     <div className="relative h-screen w-screen text-slate-900 font-sans overflow-hidden bg-transparent selection:bg-indigo-500/30 selection:text-indigo-900">
+      {/* ── VIDEO BACKGROUND ─────────────────────────────────── */}
+      <video
+        ref={videoRef}
+        className="fixed inset-0 w-full h-full object-cover z-0"
+        muted
+        playsInline
+        preload="auto"
+        src="https://pub-2c3b960ecc384ec79f19a7516c538574.r2.dev/atomitytech"
+      />
+      {/* ── DARK OVERLAY FOR GLASS CONTRAST ──────────────────── */}
+      <div className="fixed inset-0 z-[1] bg-gradient-to-b from-black/20 via-black/10 to-black/30 pointer-events-none" />
       {/* ── DECORATIVE GRADIENT ORBS ─────────────────────────── */}
       <div className="glass-orbs" />
 
@@ -122,7 +142,7 @@ export default function App() {
 
       {/* ── SCROLL TRACK ────────────────────────────────────────── */}
       <div
-        className="relative w-full h-full will-change-transform"
+        className="relative w-full h-full will-change-transform z-[10]"
         style={{
           transform: `translateY(-${activeSection * 100}vh)`,
           transition: "transform 1000ms cubic-bezier(0.25,1,0.2,1)",
