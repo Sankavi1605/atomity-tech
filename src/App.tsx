@@ -41,7 +41,7 @@ export default function App() {
       if (isTransitioning.current) return;
       isTransitioning.current = true;
       fn();
-      setTimeout(() => (isTransitioning.current = false), 400);
+      setTimeout(() => (isTransitioning.current = false), 200);
     };
 
     const onWheel = (e: WheelEvent) => {
@@ -105,7 +105,7 @@ export default function App() {
     const start = currentFrameRef.current;
     const diff = target - start;
     if (diff === 0) return;
-    const duration = 400;
+    const duration = 200;
     let startTime: number | null = null;
     const tick = (now: number) => {
       if (!startTime) startTime = now;
@@ -131,7 +131,7 @@ export default function App() {
   };
 
   const anim = (slide: number, delay = "") =>
-    `transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+    `transition-all duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] ${
       activeSection === slide ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
     } ${delay}`;
 
@@ -145,7 +145,7 @@ export default function App() {
         ref={imgRef}
         src={frameUrl(currentFrame)}
         alt=""
-        className="fixed inset-0 w-[100vw] h-[100vh] object-cover object-center z-0 scale-105"
+        className="fixed inset-0 w-[100vw] h-[100vh] object-cover object-center z-0 scale-105 blur-[3px]"
         draggable={false}
       />
       {/* ── SUBTLE VIGNETTE ───────────────────────────────────── */}
@@ -182,7 +182,7 @@ export default function App() {
         className="relative w-full h-full will-change-transform z-[10]"
         style={{
           transform: `translateY(-${activeSection * 100}vh)`,
-          transition: "transform 400ms cubic-bezier(0.25,1,0.2,1)",
+          transition: "transform 200ms cubic-bezier(0.25,1,0.2,1)",
         }}
       >
 
