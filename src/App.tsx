@@ -7,7 +7,7 @@ const glassPanel =
   "bg-white/20 backdrop-blur-[40px] border border-white/50 " +
   "shadow-[0_8px_32px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,0.6)]";
 
-const TOTAL_FRAMES = 110;
+const TOTAL_FRAMES = 224;
 const FPS = 15; // frames per second
 const FRAME_INTERVAL = 1000 / FPS;
 const BASE_URL =
