@@ -41,7 +41,7 @@ export default function App() {
       if (isTransitioning.current) return;
       isTransitioning.current = true;
       fn();
-      setTimeout(() => (isTransitioning.current = false), 900);
+      setTimeout(() => (isTransitioning.current = false), 400);
     };
 
     const onWheel = (e: WheelEvent) => {
@@ -105,7 +105,7 @@ export default function App() {
     const start = currentFrameRef.current;
     const diff = target - start;
     if (diff === 0) return;
-    const duration = 1000;
+    const duration = 400;
     let startTime: number | null = null;
     const tick = (now: number) => {
       if (!startTime) startTime = now;
@@ -131,7 +131,7 @@ export default function App() {
   };
 
   const anim = (slide: number, delay = "") =>
-    `transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+    `transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${
       activeSection === slide ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
     } ${delay}`;
 
@@ -148,8 +148,8 @@ export default function App() {
         className="fixed inset-0 w-[100vw] h-[100vh] object-cover object-center z-0 scale-105"
         draggable={false}
       />
-      {/* ── DARK OVERLAY FOR GLASS CONTRAST ──────────────────── */}
-      <div className="fixed inset-0 z-[1] bg-gradient-to-b from-black/20 via-black/10 to-black/30 pointer-events-none" />
+      {/* ── SUBTLE VIGNETTE ───────────────────────────────────── */}
+      <div className="fixed inset-0 z-[1] bg-[radial-gradient(ellipse_at_center,transparent_60%,rgba(0,0,0,0.12)_100%)] pointer-events-none" />
       {/* ── DECORATIVE GRADIENT ORBS ─────────────────────────── */}
       <div className="glass-orbs" />
 
@@ -182,7 +182,7 @@ export default function App() {
         className="relative w-full h-full will-change-transform z-[10]"
         style={{
           transform: `translateY(-${activeSection * 100}vh)`,
-          transition: "transform 1000ms cubic-bezier(0.25,1,0.2,1)",
+          transition: "transform 400ms cubic-bezier(0.25,1,0.2,1)",
         }}
       >
 
