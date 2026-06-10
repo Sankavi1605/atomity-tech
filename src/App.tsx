@@ -65,7 +65,7 @@ export default function App() {
       if (isTransitioning.current) return;
       isTransitioning.current = true;
       fn();
-      setTimeout(() => (isTransitioning.current = false), 500);
+      setTimeout(() => (isTransitioning.current = false), 800);
     };
 
     const onWheel = (e: WheelEvent) => {
@@ -114,7 +114,7 @@ export default function App() {
   };
 
   const anim = (slide: number, delay = "") =>
-    `transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+    `transition-all duration-800 ease-[cubic-bezier(0.16,1,0.3,1)] ${
       activeSection === slide
         ? "opacity-100 translate-y-0"
         : "opacity-0 translate-y-12"
@@ -179,7 +179,7 @@ export default function App() {
         className="relative w-full h-full will-change-transform z-[10]"
         style={{
           transform: `translateY(-${activeSection * 100}vh)`,
-          transition: "transform 500ms cubic-bezier(0.25,1,0.2,1)",
+          transition: "transform 800ms cubic-bezier(0.25,1,0.2,1)",
         }}
       >
         {/* ── 1 · BRAND ──────────────────────────────────────── */}
