@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 // ============================================================================
 // CONSTANTS & THEME
 // ============================================================================
-const TOTAL_FRAMES = 224;
+const TOTAL_FRAMES = 242;
 const TOTAL_SECTIONS = 8;
 const BASE_URL =
   "https://pub-2c3b960ecc384ec79f19a7516c538574.r2.dev";
